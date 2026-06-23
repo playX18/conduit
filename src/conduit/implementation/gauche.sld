@@ -64,8 +64,6 @@
               (run-process
                 (command->argv command)
                 :input :null
-                :output :null
-                :error :null
                 :wait #t)))
         (exit-status (process-exit-status process))))
 

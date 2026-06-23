@@ -46,6 +46,15 @@
   (else #t))
 
 (cond-expand
+  (gauche
+   (check 'shell-command-stdio
+          (process-output+error+status
+            '("gosh" "-I" "src" "-r7" "-e"
+              "(import (scheme base) (conduit)) (shell-command '(\"sh\" \"-c\" \"printf out; printf err >&2\"))"))
+          '("out" "err" 0)))
+  (else #t))
+
+(cond-expand
   ((or capy gauche chibi sagittarius mosh stklos kawa ironscheme)
    (check 'process-error
           (process-error->string '("sh" "-c" "printf problem >&2"))
